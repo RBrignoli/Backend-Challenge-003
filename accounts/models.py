@@ -14,7 +14,15 @@ from django.utils.translation import ugettext as _
 ###
 # Choices
 ###
+MALE = 'male'
+FEMALE = 'female'
+OTHER = 'other'
 
+GENDER_CHOICES = [
+    (MALE, _(MALE)),
+    (FEMALE, _(FEMALE)),
+    (OTHER, _(OTHER)),
+]
 
 ###
 # Querysets
@@ -25,8 +33,62 @@ from django.utils.translation import ugettext as _
 # Models
 ###
 class User(AbstractUser):
-    # Override user model here
-    pass
+    email = models.EmailField(
+        verbose_name=('email adress'),
+        unique=True,
+    )
+
+    name = models.CharField(
+        verbose_name=('name'),
+        max_length=64,
+        null=True,
+    )
+    height = models.CharField(
+        max_length=8,
+        verbose_name=('height'),
+        help_text=('in metres'),
+        null=True,
+    )
+    weight = models.CharField(
+        max_length=8,
+        verbose_name=('weight'),
+        help_text=('in kgs'),
+        null=True,
+    )
+    date_of_birth = models.DateField(
+        verbose_name=('date of birth'),
+        null=True,
+        blank=True,
+    )
+    gender = models.CharField(
+        choices=GENDER_CHOICES,
+        verbose_name=('gender'),
+        max_length=8,
+        default=OTHER
+    )
+    address = models.CharField(
+        verbose_name=('address'),
+        max_length=64,
+        null=True,
+    )
+    mobile_country_code = models.CharField(
+        max_length=3,
+        verbose_name=('code'),
+        null=True,
+    )
+    mobile_phone_number = models.CharField(
+        max_length=9,
+        verbose_name=('number'),
+        null=True,
+    )
+
+    stripe_id = models.CharField(
+        max_length=32,
+        verbose_name=('stripe'),
+        null= False
+    )
+
+
 
 
 class ChangeEmailRequest(models.Model):
