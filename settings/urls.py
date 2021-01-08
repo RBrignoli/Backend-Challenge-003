@@ -41,6 +41,7 @@ urlpatterns = [
 
     # Applications
     url(r'^', include('accounts.urls')),
+    url(r'^', include('booking.urls')),
 ]
 
 if settings.ENVIRONMENT != 'production':

@@ -15,10 +15,15 @@ from rest_framework import serializers
 ###
 
 
-class BookingSerializer(serializers.ModelSerializerr):
+class CreateBookingSerializer(serializers.ModelSerializerr):
 
     class Meta:
         model = Booking
         fields = ('user', 'start_time', 'end_prevision', 'date')
 
-        read_only_fields = ('duration', 'price', 'charge_paid', 'refound', 'canceled')
+class ListBookingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Booking
+        fields = ('user', 'start_time', 'end_prevision', 'date','duration', 'price', 'charge_paid', 'refound', 'canceled')
+

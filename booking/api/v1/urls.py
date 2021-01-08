@@ -6,6 +6,7 @@ API V1: Booking Urls
 ###
 from django.conf.urls import url, include
 from rest_framework_nested import routers
+from booking.api.v1.views import BookingViewSet
 
 
 ###
@@ -13,6 +14,7 @@ from rest_framework_nested import routers
 ###
 """ Main router """
 router = routers.SimpleRouter()
+router.register(r'bookings', BookingViewSet)
 
 
 ###

@@ -7,7 +7,7 @@ Booking Models
 from django.db import models
 from django.db.models import Q
 from helpers.models import TimestampModel
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 from accounts.models import User
 
@@ -24,6 +24,27 @@ from accounts.models import User
 ###
 # Models
 ###
+
+class Gym(models.Model):
+
+    gym_start_time = models.TimeField(
+        verbose_name=('start time')
+    )
+    gym_end_time = models.TimeField(
+        verbose_name=('end time')
+    )
+    max_number_of_users= models.IntegerField(
+        verbose_name=('max users'),
+        validators = [MaxValueValidator],
+        null = False,
+        blank = False
+    )
+    hourly_rate = models.DecimalField(
+        verbose_name=('price'),
+        validators = [MinValueValidator(0.0)],
+        null = False,
+        blank = False
+    )
 
 
 class Booking(models.Model):
