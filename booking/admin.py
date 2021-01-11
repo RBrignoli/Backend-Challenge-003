@@ -20,6 +20,6 @@ class BookingAdmin(admin.ModelAdmin):
     list_display = ['user', 'start_time', 'end_prevision', 'date', 'charge_paid',]
     list_filter = ['user', 'date',]
 
-@admin_register(Gym)
-class GymAdmin(admin.ModelAdmin)
+@admin.register(Gym)
+class GymAdmin(admin.ModelAdmin):
     list_display = ['gym_start_time', 'gym_end_time', 'max_number_of_users', 'hourly_rate',]

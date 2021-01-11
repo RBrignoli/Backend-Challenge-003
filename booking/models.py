@@ -42,6 +42,8 @@ class Gym(models.Model):
     hourly_rate = models.DecimalField(
         verbose_name=('price'),
         validators = [MinValueValidator(0.0)],
+        decimal_places=2,
+        max_digits=6,
         null = False,
         blank = False,
     )
@@ -72,6 +74,8 @@ class Booking(models.Model):
         validators=[MinValueValidator(0.0)],
         null = True,
         blank = True,
+        decimal_places=2,
+        max_digits=6,
     )
     charge_paid = models.BooleanField(
         default= False,

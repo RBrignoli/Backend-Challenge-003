@@ -16,7 +16,9 @@ from rest_framework.validators import ValidationError
 from accounts.forms import (
     CustomResetPasswordForm,
 )
+from accounts.models import User, GENDER_CHOICES
 
+from rest_auth.registration.serializers import RegisterSerializer as BaseRegisterSerializer
 
 ###
 # Serializers
@@ -90,11 +92,11 @@ class RegisterSerializer(BaseRegisterSerializer):
         allow_null=True,
     )
 
-    mobile_country_code = serializers.IntegerField(
+    mobile_country_code = serializers.CharField(
         max_length=8,
         allow_null=True,
     )
-    mobile_phone_number = serializers.IntegerField(
+    mobile_phone_number = serializers.CharField(
         max_length=30,
         allow_null=True,
     )

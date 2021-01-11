@@ -85,7 +85,6 @@ class User(AbstractUser):
     stripe_id = models.CharField(
         max_length=32,
         verbose_name=('stripe'),
-        null= False
     )
 
 
