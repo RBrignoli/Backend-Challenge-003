@@ -24,7 +24,7 @@ class BookingAdmin(admin.ModelAdmin):
 class GymAdmin(admin.ModelAdmin):
     list_display = ['gym_start_time', 'gym_end_time', 'max_number_of_users', 'hourly_rate',]
     def has_add_permission(self, request):
-        if Gym.objects.all().count() == 0:
+        if not Gym.objects.exists():
             return True
         else:
             return False
