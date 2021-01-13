@@ -28,22 +28,24 @@ from accounts.models import User
 class Gym(models.Model):
 
     gym_start_time = models.TimeField(
-        verbose_name=('start time')
+        verbose_name=('start time'),
     )
     gym_end_time = models.TimeField(
-        verbose_name=('end time')
+        verbose_name=('end time'),
     )
     max_number_of_users= models.IntegerField(
         verbose_name=('max users'),
         validators = [MaxValueValidator],
         null = False,
-        blank = False
+        blank = False,
     )
     hourly_rate = models.DecimalField(
         verbose_name=('price'),
         validators = [MinValueValidator(0.0)],
+        decimal_places=2,
+        max_digits=6,
         null = False,
-        blank = False
+        blank = False,
     )
 
 
@@ -72,18 +74,20 @@ class Booking(models.Model):
         validators=[MinValueValidator(0.0)],
         null = True,
         blank = True,
+        decimal_places=2,
+        max_digits=6,
     )
     charge_paid = models.BooleanField(
         default= False,
-        verbose_name=('charge')
+        verbose_name=('charge'),
     )
     canceled = models.BooleanField(
         default= False,
-        verbose_name=('canceled')
+        verbose_name=('canceled'),
     )
     refound = models.BooleanField(
         default= False,
-        verbose_name=('refound')
+        verbose_name=('refound'),
     )
 
 

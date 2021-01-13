@@ -15,7 +15,7 @@ from rest_framework import serializers
 ###
 
 
-class CreateBookingSerializer(serializers.ModelSerializerr):
+class CreateBookingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Booking

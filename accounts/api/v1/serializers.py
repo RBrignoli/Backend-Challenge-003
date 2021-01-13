@@ -16,7 +16,9 @@ from rest_framework.validators import ValidationError
 from accounts.forms import (
     CustomResetPasswordForm,
 )
+from accounts.models import User, GENDER_CHOICES
 
+from rest_auth.registration.serializers import RegisterSerializer as BaseRegisterSerializer
 
 ###
 # Serializers
@@ -53,3 +55,52 @@ class PasswordResetSerializer(BasePasswordResetSerializer):
             'email_template_name': 'account/password_reset_message.txt',
             'html_email_template_name': 'account/password_reset_message.html',
         }
+
+
+class UserProfileWriteSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('height', 'weight', 'date_of_birth', 'gender', 'address', 'mobile_country_code', 'mobile_phone_number', 'strip_id')
+
+
+
+class RegisterSerializer(BaseRegisterSerializer):
+
+    name = serializers.CharField(
+        write_only=True,
+        max_length=64,
+        required=True,
+        allow_blank=False,
+    )
+    height = serializers.CharField(
+        max_length=255,
+        allow_null=True,
+    )
+    weight = serializers.CharField(
+        max_length=255,
+        allow_null=True,
+    )
+    date_of_birth = serializers.DateField(
+        allow_null=True,
+    )
+    gender = serializers.ChoiceField(
+        choices=GENDER_CHOICES,
+
+    )
+    address = serializers.DateField(
+        allow_null=True,
+    )
+
+    mobile_country_code = serializers.CharField(
+        max_length=8,
+        allow_null=True,
+    )
+    mobile_phone_number = serializers.CharField(
+        max_length=30,
+        allow_null=True,
+    )
+    strip_id = serializers.CharField(
+        max_length=255,
+        allow_null=True,
+    )
