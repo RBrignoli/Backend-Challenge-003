@@ -21,6 +21,11 @@ class CreateBookingSerializer(serializers.ModelSerializer):
         model = Booking
         fields = ('user', 'start_time', 'end_prevision', 'date')
 
+    def validate(self, obj):
+
+
+
+
 class ListBookingSerializer(serializers.ModelSerializer):
 
     class Meta:

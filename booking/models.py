@@ -68,6 +68,8 @@ class Booking(models.Model):
     )
     duration = models.TimeField(
         verbose_name=('duration'),
+        null=True,
+        blank=True,
     )
     price = models.DecimalField(
         verbose_name=('price'),
@@ -79,7 +81,7 @@ class Booking(models.Model):
     )
     charge_paid = models.BooleanField(
         default= False,
-        verbose_name=('charge'),
+        verbose_name=('paid'),
     )
     canceled = models.BooleanField(
         default= False,
