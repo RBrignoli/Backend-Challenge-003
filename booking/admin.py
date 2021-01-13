@@ -19,6 +19,10 @@ from booking.models import Booking, Gym
 class BookingAdmin(admin.ModelAdmin):
     list_display = ['user', 'start_time', 'end_prevision', 'date', 'charge_paid',]
     list_filter = ['user', 'date',]
+    fieldsets = (
+        (('Booking'),
+         {'fields': ('user', 'start_time', 'end_prevision', 'date', 'charge_paid',)}),
+    )
 
 @admin.register(Gym)
 class GymAdmin(admin.ModelAdmin):
