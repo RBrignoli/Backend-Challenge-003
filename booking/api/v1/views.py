@@ -38,10 +38,11 @@ class BookingViewSet(viewsets.ModelViewSet):
             return CreateBookingSerializer
         return ListBookingSerializer
 
+
     @action(detail=True, methods=['post'])
     def cancelbooking(self, request, **kwargs):
-        booking_to_cancel_id = request.data.get('booking_id')
-        booking_to_cancel = get_object_or_404(booking,id=booking_to_cancel_id)
+        booking_to_cancel_id = request.data.get("booking_id")
+        booking_to_cancel = get_object_or_404(Booking,id=booking_to_cancel_id)
         booking_to_cancel.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 

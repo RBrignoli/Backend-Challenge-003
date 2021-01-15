@@ -302,8 +302,3 @@ if not DEBUG and ENVIRONMENT != 'test':
     AWS_DEFAULT_REGION = 'us-west-2'
 
 # GYM PARAMETERS
-
-GYM_START_TIME = os.environ.get('GYM_START_TIME')
-GYM_END_TIME = os.environ.get('GYM_END_TIME')
-MAX_NUMBER_OF_USERS = os.environ.get('MAX_NUMBER_OF_USERS')
-GYM_HOURLY_RATE = os.environ.get('GYM_HOURLY_RATE')

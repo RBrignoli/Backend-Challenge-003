@@ -4,6 +4,9 @@ Booking Models
 ###
 # Libraries
 ###
+from datetime import datetime
+
+from dateutil.relativedelta import relativedelta
 from django.db import models
 from django.db.models import Q
 from helpers.models import TimestampModel
@@ -51,7 +54,7 @@ class Gym(models.Model):
 
 class Booking(models.Model):
 
-    user = models.OneToOneField(
+    user = models.ForeignKey(
         User,
         verbose_name=('user'),
         related_name=('user'),
@@ -96,7 +99,25 @@ class Booking(models.Model):
 
     @staticmethod
     def simultaneus_users(start_time, end_prevision, date):
-        return Booking.objects.filter(date=date).filter(Q(end_time__gte=start_time)).filter(Q(start_time__lte=end_prevision)).count()
+        return Booking.objects.filter(date=date).filter(Q(end_prevision__gte=start_time)).filter(Q(start_time__lte=end_prevision)).count()
+
+    @property
+    def duration(self):
+        end = datetime.combine(self.date, self.end_prevision)
+        start = datetime.combine(self.date, self.start_time)
+        duration_booking = relativedelta(end, start)
+        minutes = duration_booking.minutes
+        hours = duration_booking.hours
+        total_time = 60*hours + minutes
+        return total_time
+
+
+    @property
+    def price(self):
+        hourly_rate = Gym.objects.first().hourly_rate
+        charge_price = self.duration * hourly_rate
+        return charge_price
+
 
 
 
