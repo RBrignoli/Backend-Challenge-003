@@ -45,5 +45,9 @@ sentry-sdk==0.17.8
 # FIXME: Workaround for https://github.com/boto/botocore/issues/2187
 urllib3>=1.25.4
 
+stripe==2.55.51
+
 # Docs
 drf-yasg==1.17.1
+
+

@@ -29,8 +29,7 @@ class BookingViewSet(viewsets.ModelViewSet):
 
 
     def filter_queryset(self, queryset):
-        related_user = get_object_or_404(User, username=self.request.user)
-        return queryset.filter(user=related_user)
+        return queryset.filter(user=self.request.user)
 
 
     def get_serializer_class(self):
@@ -39,12 +38,17 @@ class BookingViewSet(viewsets.ModelViewSet):
         return ListBookingSerializer
 
 
-    @action(detail=True, methods=['post'])
+    @action(detail=True, methods=['post'], url_path='cancel-booking',)
     def cancelbooking(self, request, **kwargs):
+
         booking_to_cancel_id = request.data.get("booking_id")
         booking_to_cancel = get_object_or_404(Booking,id=booking_to_cancel_id)
         booking_to_cancel.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @action(detail=True, methods=['path'], url_path='add-stripe-id',)
+    def addstripeid(self, request, **kwargs):
+        pass
 
 
 
