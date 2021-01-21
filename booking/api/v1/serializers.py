@@ -8,7 +8,7 @@ from datetime import datetime
 
 from booking.models import Booking, Gym
 from rest_framework.exceptions import ValidationError
-
+import stripe
 
 
 from rest_framework import serializers
@@ -47,6 +47,7 @@ class CreateBookingSerializer(serializers.ModelSerializer):
         simultaneus_users = Booking.simultaneus_users(start, end, booking_date)
         if simultaneus_users == max_users:
             raise ValidationError('Gym at max number of users')
+
 
         return attrs
 
