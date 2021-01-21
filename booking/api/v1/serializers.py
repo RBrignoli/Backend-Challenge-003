@@ -37,6 +37,8 @@ class CreateBookingSerializer(serializers.ModelSerializer):
         end_gym = Gym.objects.first().gym_end_time
         if end > end_gym:
             raise ValidationError({'end_prevision': ('Cannot end after the GYM')})
+        if start > end:
+            raise ValidationError({'end_prevision': ('Cannot end before starts')})
         booking_date = attrs.get('date')
         current_date = datetime.now().date()
         if booking_date < current_date:
@@ -45,6 +47,7 @@ class CreateBookingSerializer(serializers.ModelSerializer):
         simultaneus_users = Booking.simultaneus_users(start, end, booking_date)
         if simultaneus_users == max_users:
             raise ValidationError('Gym at max number of users')
+
         return attrs
 
 

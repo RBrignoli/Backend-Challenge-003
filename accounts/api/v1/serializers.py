@@ -129,18 +129,19 @@ class RegisterSerializer(BaseRegisterSerializer):
         }
 
     def custom_signup(self, request, user):
-        user.email = self.get_cleaned_data().get('email')
-        user.name = self.get_cleaned_data().get('name')
-        user.height = self.get_cleaned_data().get('height')
-        user.weight = self.get_cleaned_data().get('weight')
-        user.date_of_birth = self.get_cleaned_data().get('date_of_birth')
-        user.gender = self.get_cleaned_data().get('gender')
-        user.address = self.get_cleaned_data().get('address')
-        user.mobile_country_code = self.get_cleaned_data().get('mobile_country_code')
-        user.mobile_phone_number = self.get_cleaned_data().get('mobile_phone_number')
-        user.stripe_id = self.get_cleaned_data().get('stripe_id')
+        cleaned_data = self.get_cleaned_data()
+        user.email = cleaned_data().get('email')
+        user.name = cleaned_data().get('name')
+        user.height = cleaned_data().get('height')
+        user.weight = cleaned_data().get('weight')
+        user.date_of_birth = cleaned_data().get('date_of_birth')
+        user.gender = cleaned_data().get('gender')
+        user.address = cleaned_data().get('address')
+        user.mobile_country_code = cleaned_data().get('mobile_country_code')
+        user.mobile_phone_number = cleaned_data().get('mobile_phone_number')
+        user.stripe_id = cleaned_data().get('stripe_id')
 
         user.save()
-        pass
+
 
 
