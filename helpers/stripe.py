@@ -39,20 +39,20 @@ class StripeAccountClient:
 
 class StripeCardClient:
 
-    def add_card(self, user, request):
-        card = request.data
+    def add_card(self, request):
+        card = request
         created_card = stripe.PaymentMethod.create(
             type="card",
             card={
-                "number": card.number,
-                "exp_month": card.exp_month,
-                "exp_year": card.exp_year,
-                "cvc": card.cvc,
+                "number": card.data.number,
+                "exp_month": card.data.exp_month,
+                "exp_year": card.data.exp_year,
+                "cvc": card.data.cvc,
             }
         )
         stripe.PaymentMethod.attach(
             created_card.id,
-            user.stripe_id
+            request.user.stripe_id
         )
 
     def update_card(self, user):
@@ -60,6 +60,12 @@ class StripeCardClient:
     def delete_card(self, user):
         pass
 
+
+class StripePaymentClient:
+
+    def list_payments(self, user):
+        payments_list = stripe.PaymentIntent.list(customer=user.stripe_id)
+        return payments_list
 
 
 

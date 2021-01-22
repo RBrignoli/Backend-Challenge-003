@@ -1,3 +1,16 @@
-from django.contrib import admin
+"""
+Payments admin
+"""
+###
+# Libraries
+###
 
-# Register your models here.
+
+###
+# Inline Admin Models
+###
+
+
+###
+# Main Admin Models
+###

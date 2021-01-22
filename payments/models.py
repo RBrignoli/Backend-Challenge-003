@@ -1,3 +1,21 @@
-from django.db import models
+"""
+Payments Models
+"""
+###
+# Libraries
+###
 
-# Create your models here.
+
+###
+# Choices
+###
+
+
+###
+# Querysets
+###
+
+
+###
+# Models
+###

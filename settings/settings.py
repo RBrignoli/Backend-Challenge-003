@@ -85,6 +85,7 @@ INSTALLED_APPS = [
     # Applications
     'accounts',
     'booking',
+    'payments',
 
     # Third party django mods
     'drf_yasg',

@@ -8,8 +8,6 @@ from datetime import datetime
 
 from booking.models import Booking, Gym
 from rest_framework.exceptions import ValidationError
-import stripe
-
 
 from rest_framework import serializers
 
@@ -21,12 +19,11 @@ from rest_framework import serializers
 class CreateBookingSerializer(serializers.ModelSerializer):
 
 
-
-
     class Meta:
         model = Booking
-        fields = ('user', 'start_time', 'end_prevision', 'date')
-        read_only_fields = ('duration', 'price', 'charge_paid', 'canceled', 'refound',)
+        fields = ('start_time', 'end_prevision', 'date')
+        read_only_fields = ('user','duration', 'price', 'charge_paid', 'canceled', 'refound',)
+
 
     def validate(self, attrs):
         start = attrs.get('start_time')

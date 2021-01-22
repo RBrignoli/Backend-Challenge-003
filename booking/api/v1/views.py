@@ -38,6 +38,11 @@ class BookingViewSet(viewsets.ModelViewSet):
             return CreateBookingSerializer
         return ListBookingSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+
 
 
 
@@ -45,10 +50,11 @@ class BookingViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'], url_path='cancel-booking',)
     def cancelbooking(self, request, **kwargs):
 
-        booking_to_cancel_id = request.data.get("booking_id")
-        booking_to_cancel = get_object_or_404(Booking,id=booking_to_cancel_id)
+        booking_to_cancel_date = request.data.get("date")
+        booking_to_cancel_starttime = request.data.get("start_time")
+        booking_to_cancel = get_object_or_404(Booking, date=booking_to_cancel_date, start_time=booking_to_cancel_starttime)
         booking_to_cancel.delete()
-        
+
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
