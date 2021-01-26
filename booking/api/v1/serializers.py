@@ -9,8 +9,6 @@ from datetime import datetime
 from booking.models import Booking, Gym
 from rest_framework.exceptions import ValidationError
 
-
-
 from rest_framework import serializers
 
 ###
@@ -21,12 +19,11 @@ from rest_framework import serializers
 class CreateBookingSerializer(serializers.ModelSerializer):
 
 
-
-
     class Meta:
         model = Booking
-        fields = ('user', 'start_time', 'end_prevision', 'date')
-        read_only_fields = ('duration', 'price', 'charge_paid', 'canceled', 'refound',)
+        fields = ('start_time', 'end_prevision', 'date')
+        read_only_fields = ('user','duration', 'price', 'charge_paid', 'canceled', 'refound',)
+
 
     def validate(self, attrs):
         start = attrs.get('start_time')
@@ -47,6 +44,7 @@ class CreateBookingSerializer(serializers.ModelSerializer):
         simultaneus_users = Booking.simultaneus_users(start, end, booking_date)
         if simultaneus_users == max_users:
             raise ValidationError('Gym at max number of users')
+
 
         return attrs
 

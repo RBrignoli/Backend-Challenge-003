@@ -85,6 +85,7 @@ INSTALLED_APPS = [
     # Applications
     'accounts',
     'booking',
+    'payments',
 
     # Third party django mods
     'drf_yasg',
@@ -302,3 +303,4 @@ if not DEBUG and ENVIRONMENT != 'test':
     AWS_DEFAULT_REGION = 'us-west-2'
 
 # GYM PARAMETERS
+STRIPE_API_KEY = 'sk_test_51IBNSmHU4ztZLk8AHcEMRz7XjiJ5EjGRG77UjlAsgykHAeyQQwkTtgiFZFFi99va14NE3ZDH1fYhf1D6NmIUWcwX00YUeXxDqX'

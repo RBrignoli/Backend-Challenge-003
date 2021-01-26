@@ -123,23 +123,21 @@ class RegisterSerializer(BaseRegisterSerializer):
             'address': self.validated_data.get('address', ''),
             'mobile_country_code': self.validated_data.get('mobile_country_code', ''),
             'mobile_phone_number': self.validated_data.get('mobile_phone_number', ''),
-            'stripe_id': self.validated_data.get('stripe_id', ''),
 
 
         }
 
     def custom_signup(self, request, user):
         cleaned_data = self.get_cleaned_data()
-        user.email = cleaned_data().get('email')
-        user.name = cleaned_data().get('name')
-        user.height = cleaned_data().get('height')
-        user.weight = cleaned_data().get('weight')
-        user.date_of_birth = cleaned_data().get('date_of_birth')
-        user.gender = cleaned_data().get('gender')
-        user.address = cleaned_data().get('address')
-        user.mobile_country_code = cleaned_data().get('mobile_country_code')
-        user.mobile_phone_number = cleaned_data().get('mobile_phone_number')
-        user.stripe_id = cleaned_data().get('stripe_id')
+        user.email = cleaned_data.get('email')
+        user.name = cleaned_data.get('name')
+        user.height = cleaned_data.get('height')
+        user.weight = cleaned_data.get('weight')
+        user.date_of_birth = cleaned_data.get('date_of_birth')
+        user.gender = cleaned_data.get('gender')
+        user.address = cleaned_data.get('address')
+        user.mobile_country_code = cleaned_data.get('mobile_country_code')
+        user.mobile_phone_number = cleaned_data.get('mobile_phone_number')
 
         user.save()
 
