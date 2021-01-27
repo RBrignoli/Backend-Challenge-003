@@ -11,6 +11,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
 
 import stripe
+from helpers import stripe
 
 from booking.models import Booking
 from accounts.models import User
@@ -38,8 +39,9 @@ class BookingViewSet(viewsets.ModelViewSet):
             return CreateBookingSerializer
         return ListBookingSerializer
 
+
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+            serializer.save(user=self.request.user)
 
 
 
@@ -53,9 +55,13 @@ class BookingViewSet(viewsets.ModelViewSet):
         booking_to_cancel_date = request.data.get("date")
         booking_to_cancel_starttime = request.data.get("start_time")
         booking_to_cancel = get_object_or_404(Booking, date=booking_to_cancel_date, start_time=booking_to_cancel_starttime)
-        booking_to_cancel.delete()
-
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        booking_to_cancel.canceled = True
+        if booking_to_cancel.charge_paid:
+            refound = stripe.StripePaymentClient.refound(booking_to_cancel)
+            if refound.status == 'succeeded':
+                booking_to_cancel.refound = True
+                booking_to_cancel.save()
+        return Response(refound, status=status.HTTP_204_NO_CONTENT)
 
 
 

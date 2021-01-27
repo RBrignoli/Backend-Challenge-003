@@ -15,7 +15,7 @@ from payments.api.v1.views import CardViewSet, PaymentsViewSet
 """ Main router """
 router = routers.SimpleRouter()
 router.register(r'payments', PaymentsViewSet, basename='payments')
-router.register(r'addcard', CardViewSet, basename='add_card',)
+router.register(r'card', CardViewSet, basename='card',)
 
 
 
