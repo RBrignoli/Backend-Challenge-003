@@ -94,6 +94,10 @@ class Booking(models.Model):
         default= False,
         verbose_name=('refound'),
     )
+    charge_id = models.CharField(
+        verbose_name=('charge'),
+        max_length=30,
+    )
 
 
 

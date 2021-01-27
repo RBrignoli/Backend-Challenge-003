@@ -88,6 +88,30 @@ class StripePaymentClient:
         return payments_list
 
 
+    def charge(self):
+
+        customer_id = self.user.stripe_id
+        customer_obj = stripe.Customer.retrieve(customer_id)
+        source = customer_obj.default_source
+        price = int((self.price)*100)
+
+
+        charge = stripe.Charge.create(
+            amount=price,
+            currency="brl",
+            source=source,
+            customer= customer_id,
+            description="ultimo teste",
+        )
+        return charge
+
+    def refound(self):
+        refound = stripe.Refund.create(
+            charge=self.charge_id
+        )
+        return refound
+
+
 
 
 
