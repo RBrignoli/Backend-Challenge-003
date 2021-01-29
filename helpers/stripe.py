@@ -27,17 +27,6 @@ class StripeAccountClient:
         user.stripe_id = account.id
         user.save()
 
-
-    def update_stripe_account(self, user):
-        pass
-
-    def delete_stripe_account(self, user):
-        pass
-
-    def list_stripe_costumers(self, user):
-        pass
-
-
 class StripeCardClient:
 
     def add_card(self, card_client, request):
@@ -110,6 +99,17 @@ class StripePaymentClient:
             charge=self.charge_id
         )
         return refound
+
+
+class StripePayout:
+
+    def balance(self):
+        balance = stripe.Balance.retrieve()
+        return balance
+
+
+    def payout(self):
+
 
 
 
