@@ -9,6 +9,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
+from datetime import datetime
 
 import stripe
 from helpers import stripe
@@ -54,6 +55,9 @@ class BookingViewSet(viewsets.ModelViewSet):
 
         booking_to_cancel_date = request.data.get("date")
         booking_to_cancel_starttime = request.data.get("start_time")
+        time = datetime.combine(booking_to_cancel_date, booking_to_cancel_starttime)
+        if time < datetime.now():
+            return ValidationError('date: you cant cancel a booking that already started/passed')
         booking_to_cancel = get_object_or_404(Booking, date=booking_to_cancel_date, start_time=booking_to_cancel_starttime)
         booking_to_cancel.canceled = True
         if booking_to_cancel.charge_paid:

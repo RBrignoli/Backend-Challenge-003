@@ -23,10 +23,11 @@ def create_charge(sender, instance, **kwargs):
         if charge.paid:
             instance.charge_paid = True
             instance.charge_id = charge.id
-            instance.save()
+
         else:
             instance.canceled = True
-            instance.save()
+
+        instance.save()
 
 
 
