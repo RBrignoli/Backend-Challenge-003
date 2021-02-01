@@ -5,6 +5,16 @@ if [ "$1" = "manage" ]; then
     shift 1
     exec python manage.py "$@"
 
+elif [ "$1" = "celery" ]; then
+    python manage.py migrate
+    python manage.py collectstatic --noinput
+    echo Starting celery workers
+    exec celery -A settings worker -l INFO
+elif [ "$1" = "celerybeat" ]; then
+    python manage.py migrate
+    python manage.py collectstatic --noinput
+    echo Starting celery beat
+    exec celery -A settings beat -l INFO
 
 else
     python manage.py migrate                  # Apply database migrations

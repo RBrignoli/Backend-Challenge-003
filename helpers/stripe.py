@@ -9,13 +9,6 @@ from settings import settings
 
 #### Actions ####
 
-
-#create account
-#add card
-#delete card
-#create charge
-#refound
-
 stripe.api_key = settings.STRIPE_API_KEY
 
 class StripeAccountClient:
@@ -109,6 +102,10 @@ class StripePayout:
 
 
     def payout(self):
+        stripe.Payout.create(
+            amount= self.amount,
+            currency= "brl"
+        )
 
 
 
