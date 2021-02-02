@@ -4,13 +4,34 @@ Booking admin
 ###
 # Libraries
 ###
-from django.contrib import admin
-from booking.models import Booking, Gym
+from datetime import datetime
 
+
+from django.contrib import admin
+from django.core.exceptions import ValidationError
+
+from booking.models import Booking, Gym
+from helpers import stripe
 
 ###
 # Inline Admin Models
 ###
+
+admin.site.disable_action('delete_selected')
+
+def cancel_booking(modeladmin, request, queryset):
+
+    for booking in queryset:
+        hour = booking.start_time
+        date = booking.date
+        time = datetime.combine(date, hour)
+        if time < datetime.now():
+            return ValidationError('date: you cant cancel a booking that already started/passed')
+        if booking.charge_paid:
+            refund = stripe.StripePaymentClient.refound(booking)
+        if refund.status == 'succeeded':
+            queryset.update(refound = True, canceled = True)
+    cancel_booking.short_description = "cancel selected bookings"
 
 
 ###
@@ -24,6 +45,7 @@ class BookingAdmin(admin.ModelAdmin):
         (('Booking'),
          {'fields': ('user', 'start_time', 'end_prevision', 'date','charge_paid','canceled', 'refound')}),
     )
+    actions = [cancel_booking]
 
 
 
