@@ -17,7 +17,7 @@ from payments.api.v1.webhooks import my_webhook_view
 router = routers.SimpleRouter()
 router.register(r'payments', PaymentsViewSet, basename='payments')
 router.register(r'card', CardViewSet, basename='card',)
-router.register(r'webhooks', WebhookViewSet, basename='webhooks',)
+
 
 
 
