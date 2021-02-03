@@ -7,10 +7,10 @@ from helpers.stripe import StripeAccountClient
 
 from accounts.models import User
 
+
 ###
 # Signals
 ###
-
 
 
 @receiver(post_save, sender=User)

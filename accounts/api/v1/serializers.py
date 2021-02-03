@@ -21,6 +21,7 @@ from accounts.models import User, GENDER_CHOICES
 
 from rest_auth.registration.serializers import RegisterSerializer as BaseRegisterSerializer
 
+
 ###
 # Serializers
 ###
@@ -59,15 +60,14 @@ class PasswordResetSerializer(BasePasswordResetSerializer):
 
 
 class UserProfileWriteSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = User
-        fields = ('name','height', 'weight', 'date_of_birth', 'gender', 'address', 'mobile_country_code', 'mobile_phone_number', 'strip_id')
-
+        fields = (
+        'name', 'height', 'weight', 'date_of_birth', 'gender', 'address', 'mobile_country_code', 'mobile_phone_number',
+        'strip_id')
 
 
 class RegisterSerializer(BaseRegisterSerializer):
-
     name = serializers.CharField(
         write_only=True,
         max_length=64,
@@ -124,7 +124,6 @@ class RegisterSerializer(BaseRegisterSerializer):
             'mobile_country_code': self.validated_data.get('mobile_country_code', ''),
             'mobile_phone_number': self.validated_data.get('mobile_phone_number', ''),
 
-
         }
 
     def custom_signup(self, request, user):
@@ -140,6 +139,3 @@ class RegisterSerializer(BaseRegisterSerializer):
         user.mobile_phone_number = cleaned_data.get('mobile_phone_number')
 
         user.save()
-
-
-

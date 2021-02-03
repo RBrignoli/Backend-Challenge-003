@@ -3,9 +3,7 @@ from helpers import stripe
 
 
 class Command(BaseCommand):
-    balance = stripe.StripePayout.balance()
-    amount = balance.amount
-    payout = stripe.StripePayout.payout(balance)
-
-
-
+    def handle(self, *args, **options):
+        balance = stripe.StripePayout.balance()
+        amount = balance.amount
+        payout = stripe.StripePayout.payout(balance)

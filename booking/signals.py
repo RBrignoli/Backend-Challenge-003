@@ -11,6 +11,7 @@ from helpers import stripe
 
 from booking.models import Booking
 
+
 ###
 # Signals
 ###
@@ -23,18 +24,7 @@ def create_charge(sender, instance, **kwargs):
         if charge.paid:
             instance.charge_paid = True
             instance.charge_id = charge.id
-
         else:
             instance.canceled = True
 
         instance.save()
-
-
-
-
-
-
-
-
-
-

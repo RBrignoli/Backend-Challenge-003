@@ -13,6 +13,7 @@ from helpers.stripe import StripeCardClient, StripePaymentClient
 
 from payments.api.v1.serializers import CreateCardSerializer
 
+
 ###
 # Filters
 ###
@@ -21,7 +22,6 @@ from payments.api.v1.serializers import CreateCardSerializer
 ###
 # Viewsets
 ###
-
 
 
 class PaymentsViewSet(viewsets.ViewSet):
@@ -33,12 +33,8 @@ class PaymentsViewSet(viewsets.ViewSet):
         return Response(payment_list, status=status.HTTP_200_OK)
 
 
-
-
-
 class CardViewSet(viewsets.GenericViewSet,
                   mixins.CreateModelMixin):
-
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = CreateCardSerializer
 
@@ -49,7 +45,6 @@ class CardViewSet(viewsets.GenericViewSet,
         card = StripeCardClient.add_card(self, card_client, request)
         return Response(card, status=status.HTTP_201_CREATED)
 
-
     def list(self, request):
         user = request.user
         card_list = StripeCardClient.list_cards(self, user)
@@ -58,22 +53,3 @@ class CardViewSet(viewsets.GenericViewSet,
     def delete(self, request):
         card_delete = StripeCardClient.delete_card(self, request)
         return Response(card_delete, status=status.HTTP_200_OK)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

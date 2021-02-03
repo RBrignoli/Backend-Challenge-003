@@ -14,15 +14,6 @@ from django.utils.translation import ugettext as _
 ###
 # Choices
 ###
-MALE = 'male'
-FEMALE = 'female'
-OTHER = 'other'
-
-GENDER_CHOICES = [
-    (MALE, _(MALE)),
-    (FEMALE, _(FEMALE)),
-    (OTHER, _(OTHER)),
-]
 
 ###
 # Querysets
@@ -33,6 +24,11 @@ GENDER_CHOICES = [
 # Models
 ###
 class User(AbstractUser):
+    class GenderChoices(models.TextChoices):
+        MALE = 'male', ('Homem')
+        FEMALE = 'female', ('Mulher')
+        OTHER = 'other', ('Outro')
+
     email = models.EmailField(
         verbose_name=('email adress'),
         unique=True,
@@ -61,10 +57,10 @@ class User(AbstractUser):
         blank=True,
     )
     gender = models.CharField(
-        choices=GENDER_CHOICES,
-        verbose_name=('gender'),
+        choices=GenderChoices.choices,
+        verbose_name=('User Gender'),
         max_length=8,
-        default=OTHER
+        default=GenderChoices.OTHER
     )
     address = models.CharField(
         verbose_name=('address'),
@@ -88,8 +84,6 @@ class User(AbstractUser):
         null=True,
         blank=True,
     )
-
-
 
 
 class ChangeEmailRequest(models.Model):

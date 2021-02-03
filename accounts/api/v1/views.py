@@ -100,5 +100,3 @@ class ChangeEmailConfirmationViewSet(generics.GenericAPIView):
 
             change_request.delete()
         return render('account/change_email_done.html', {'first_name': user.first_name})
-
-

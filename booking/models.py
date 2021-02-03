@@ -14,6 +14,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 from accounts.models import User
 
+
 ###
 # Choices
 ###
@@ -29,31 +30,29 @@ from accounts.models import User
 ###
 
 class Gym(models.Model):
-
     gym_start_time = models.TimeField(
         verbose_name=('start time'),
     )
     gym_end_time = models.TimeField(
         verbose_name=('end time'),
     )
-    max_number_of_users= models.IntegerField(
+    max_number_of_users = models.IntegerField(
         verbose_name=('max users'),
-        validators = [MaxValueValidator],
-        null = False,
-        blank = False,
+        validators=[MaxValueValidator],
+        null=False,
+        blank=False,
     )
     hourly_rate = models.DecimalField(
         verbose_name=('price'),
-        validators = [MinValueValidator(0.0)],
+        validators=[MinValueValidator(0.0)],
         decimal_places=2,
         max_digits=6,
-        null = False,
-        blank = False,
+        null=False,
+        blank=False,
     )
 
 
 class Booking(models.Model):
-
     user = models.ForeignKey(
         User,
         verbose_name=('user'),
@@ -77,21 +76,21 @@ class Booking(models.Model):
     price = models.DecimalField(
         verbose_name=('price'),
         validators=[MinValueValidator(0.0)],
-        null = True,
-        blank = True,
+        null=True,
+        blank=True,
         decimal_places=2,
         max_digits=6,
     )
     charge_paid = models.BooleanField(
-        default= False,
+        default=False,
         verbose_name=('paid'),
     )
     canceled = models.BooleanField(
-        default= False,
+        default=False,
         verbose_name=('canceled'),
     )
     refound = models.BooleanField(
-        default= False,
+        default=False,
         verbose_name=('refound'),
     )
     charge_id = models.CharField(
@@ -99,11 +98,10 @@ class Booking(models.Model):
         max_length=30,
     )
 
-
-
     @staticmethod
     def simultaneus_users(start_time, end_prevision, date):
-        return Booking.objects.filter(date=date).filter(Q(end_prevision__gte=start_time)).filter(Q(start_time__lte=end_prevision)).count()
+        return Booking.objects.filter(date=date).filter(Q(end_prevision__gte=start_time)).filter(
+            Q(start_time__lte=end_prevision)).count()
 
     @property
     def duration(self):
@@ -112,16 +110,11 @@ class Booking(models.Model):
         duration_booking = relativedelta(end, start)
         minutes = duration_booking.minutes
         hours = duration_booking.hours
-        total_time = 60*hours + minutes
+        total_time = 60 * hours + minutes
         return total_time
-
 
     @property
     def price(self):
         hourly_rate = Gym.objects.first().hourly_rate
         charge_price = self.duration * hourly_rate
         return charge_price
-
-
-
-

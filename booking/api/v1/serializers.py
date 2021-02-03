@@ -11,19 +11,17 @@ from rest_framework.exceptions import ValidationError
 
 from rest_framework import serializers
 
+
 ###
 # Serializers
 ###
 
 
 class CreateBookingSerializer(serializers.ModelSerializer):
-
-
     class Meta:
         model = Booking
         fields = ('start_time', 'end_prevision', 'date')
-        read_only_fields = ('user','duration', 'price', 'charge_paid', 'canceled', 'refound',)
-
+        read_only_fields = ('user', 'duration', 'price', 'charge_paid', 'canceled', 'refound',)
 
     def validate(self, attrs):
         start = attrs.get('start_time')
@@ -45,17 +43,11 @@ class CreateBookingSerializer(serializers.ModelSerializer):
         if simultaneus_users == max_users:
             raise ValidationError('Gym at max number of users')
 
-
         return attrs
 
 
-
-
-
-
 class ListBookingSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Booking
-        fields = ('user', 'start_time', 'end_prevision', 'date', 'duration', 'price', 'charge_paid', 'refound', 'canceled')
-
+        fields = (
+        'user', 'start_time', 'end_prevision', 'date', 'duration', 'price', 'charge_paid', 'refound', 'canceled')

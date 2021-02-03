@@ -28,5 +28,3 @@ class CreateCardSerializer(serializers.Serializer):
         max_length=3,
     )
     card = serializers.CharField()
-
-
